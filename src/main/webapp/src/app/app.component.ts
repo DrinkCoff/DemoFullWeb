@@ -28,7 +28,15 @@ export class AppComponent {
 
   private sayHello(): void {
       this.result = 'loading...';
-      this.http.get<string>('/api/hello-world').subscribe(response => this.result = response);
+      this.http.get<any>('/api/hello-world').subscribe(
+      (res) => {
+              this.result = res;
+            },
+      (error) => {
+                this.result = error.error.text;
+                console.log(error);
+            }
+      );
     }
 
 }
